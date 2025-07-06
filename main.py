@@ -1,9 +1,10 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 from bs4 import BeautifulSoup
 import requests
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/")
 def index():
@@ -12,13 +13,12 @@ def index():
         "routes": ["/", "/programacao"]
     })
 
-
 @app.route('/programacao', methods=['GET'])
 def get_programacao():
     try:
         radio_link = "https://93fmrr.com.br/#c"
         headers = {
-           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
         }
 
         resp = requests.get(radio_link, headers=headers, timeout=10)
@@ -42,7 +42,6 @@ def get_programacao():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
 
 if __name__ == '__main__':
     app.run()
