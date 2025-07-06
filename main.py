@@ -2,14 +2,14 @@ from flask import Flask, jsonify
 from bs4 import BeautifulSoup
 import requests
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 
 @app.route("/")
 def index():
     return jsonify({
         "status": "online",
-        "routes": ["/", "/program"]
+        "routes": ["/", "/programacao"]
     })
 
 
@@ -43,5 +43,6 @@ def get_programacao():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if _name_ == '_main_':
+
+if __name__ == '__main__':
     app.run()
